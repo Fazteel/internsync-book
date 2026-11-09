@@ -1,0 +1,62 @@
+\chapter{KAJIAN PUSTAKA}
+
+\section{DESKRIPSI PERMASALAHAN}
+
+Berdasarkan hasil analisis kebutuhan di SMK PGRI Telagasari, proses monitoring Praktik Kerja Lapangan (PKL) masih dilakukan secara manual dan belum terintegrasi dalam suatu sistem informasi terpusat. Pencatatan aktivitas siswa dilakukan melalui dokumen fisik, sedangkan proses verifikasi logbook dan rekapitulasi nilai dilakukan secara terpisah sehingga membutuhkan waktu yang relatif lama.
+
+Kondisi tersebut menimbulkan beberapa permasalahan, antara lain:
+
+\begin{enumerate}[label=\arabic*.]
+\item Proses monitoring tidak dapat dilakukan secara real-time karena guru pembimbing harus melakukan pengecekan manual atau kunjungan langsung ke lokasi industri.
+\item Pengisian logbook harian berpotensi mengalami keterlambatan serta risiko kehilangan data karena tidak terdokumentasi secara digital.
+\item Proses evaluasi dan rekapitulasi nilai siswa kurang efisien karena data tersebar dan tidak terintegrasi dalam satu basis data.
+\item Pembuatan surat pengantar industri masih dilakukan secara terpisah dari sistem monitoring.
+\item Tidak adanya sistem yang secara otomatis memantau durasi pelaksanaan PKL (3 bulan atau 6 bulan).
+\end{enumerate}
+
+Permasalahan tersebut menunjukkan perlunya sistem manajemen PKL berbasis web yang mampu mengintegrasikan autentikasi pengguna, pengelolaan data magang, logbook digital, evaluasi, serta rekapitulasi data dalam satu platform terpadu.
+
+\section{TEORI PENUNJANG}
+
+Sebagai jawaban atas kendala manajerial tersebut, proyek akhir ini merancang sebuah sistem informasi manajemen monitoring PKL menggunakan kombinasi teknologi modern sebagai berikut:
+
+\begin{itemize}
+\item Frontend (React): Digunakan untuk membangun antarmuka pengguna pada sisi web agar responsif dan dinamis.
+\item Backend (Laravel): Berperan sebagai pengolah logika bisnis, pengamanan rute API, dan pengatur alur kerja data di sisi server.
+\item Database (MySQL): Digunakan sebagai sistem manajemen basis data relasional untuk menjamin integritas data.
+\end{itemize}
+
+Pemilihan framework Laravel pada sisi backend didasarkan pada kemudahannya dalam menyediakan struktur kode yang rapi serta fitur keamanan bawaan yang mempercepat proses pengembangan aplikasi berskala menengah seperti sistem monitoring PKL ini \cite{ref1}.
+
+Arsitektur sistem ini mengadopsi pendekatan \textit{client-server} berbasis REST API terpusat dengan pengorganisasian basis data yang rapi, yaitu pemisahan tegas antara tabel master (berawalan \texttt{m\_}) yang bersifat statis dan tabel transaksi (berawalan \texttt{tr\_}) yang menampung data dinamis. Fungsionalitas inti sistem mencakup manajemen \textit{multi-role} (Admin Sistem, Waka Hubin, Koordinator PKL, Guru Pembimbing, dan Siswa) beserta akses tautan ber-token bagi Pembimbing Industri, manajemen mitra industri dan katalog lowongan, seleksi dan penempatan PKL, \textit{logbook} harian digital mandiri (\textit{self-reporting}), perizinan presensi terintegrasi berfasilitas \textit{fallback} 24 jam, \textit{monitoring} durasi 3 atau 6 bulan, evaluasi akhir berbasis rubrik baku (bobot 60\% industri dan 40\% sekolah), pengarsipan surat dinas, serta laporan rekapitulasi terpusat. Seluruh pusat relasi data transaksional sistem ini dikunci pada entitas \texttt{tr\_internships}.
+
+Metodologi pengembangan sistem ini menggunakan model Waterfall karena seluruh kebutuhan fungsionalitas telah didefinisikan secara jelas sejak awal. Pemilihan model Waterfall dibandingkan metode lain seperti Rapid Application Development (RAD) atau Prototype didasarkan pada karakteristik proyek yang memiliki kebutuhan fungsional terdefinisi sejak tahap analisis awal, sehingga pendekatan linear dan terstruktur dinilai lebih sesuai dibandingkan metode iteratif \cite{ref2}. Pendekatan ini juga dinilai lebih unggul dalam dokumentasi tahapan pengembangan dibandingkan model Prototype yang lebih fleksibel namun kurang terstruktur \cite{ref3}.
+
+\section{PENELITIAN TERKAIT}
+
+Penelitian terkait digunakan sebagai acuan, perbandingan, dan landasan teoritis untuk memetakan posisi penelitian proyek akhir ini di antara penelitian-penelitian yang sudah ada sebelumnya. Terdapat beberapa penelitian terdahulu yang memiliki relevansi kuat dengan pengembangan sistem monitoring Praktik Kerja Lapangan (PKL), baik dari segi fungsionalitas sistem, platform yang digunakan, maupun metodologi pengembangannya.
+
+Berikut adalah rincian literatur yang menjadi referensi utama dalam penelitian ini:
+
+\begin{enumerate}[label=\arabic*.]
+\item Sistem Informasi Manajemen Magang Berbasis Web \cite{ref4}
+\par\noindent Penelitian ini berfokus pada perancangan dan implementasi sistem informasi manajemen magang berbasis web yang ditujukan untuk Sekolah Menengah Kejuruan (SMK). Sistem ini dibangun menggunakan bahasa pemrograman PHP dengan framework Laravel, basis data MySQL, serta mengadopsi model pengembangan Waterfall. Fitur unggulan yang ditawarkan mencakup pelacakan kehadiran siswa secara real-time melalui verifikasi swafoto (selfie) yang dilengkapi geolokasi, jurnal harian digital, mekanisme penilaian terintegrasi, dan pembuatan sertifikat otomatis. Implementasi sistem ini terbukti efektif dalam mengurangi penumpukan dokumen fisik serta meningkatkan optimalisasi pemantauan kegiatan magang.
+\item Aplikasi Magang Mahasiswa Berbasis Web \cite{ref5}
+\par\noindent Pada tingkat pendidikan tinggi, penelitian ini merancang aplikasi informasi magang mahasiswa untuk memberikan kemudahan administratif. Sistem ini dirancang agar mahasiswa dapat mendaftar magang, melaporkan kegiatan harian, serta menyerahkan laporan akhir secara digital, sekaligus memudahkan institusi dalam mengelola data magang secara terstruktur. Penelitian ini menggunakan metode Waterfall yang mencakup tahapan tinjauan pustaka, analisis kebutuhan, desain sistem, implementasi, pengujian, hingga evaluasi, dengan memanfaatkan framework Laravel karena performanya yang dinilai baik dan kemudahannya dalam pengembangan.
+\item Perancangan Sistem Informasi Monitoring Magang \cite{ref6}
+\par\noindent Dari sisi pengawasan dan pemantauan presensi, penelitian ini merancang sistem informasi untuk menggantikan sistem pelaporan absensi dan kegiatan harian mahasiswa magang yang sebelumnya dilakukan secara konvensional menjadi terkomputerisasi dan terpusat. Hasil dari penelitian ini berupa rancangan sistem informasi yang mencakup aplikasi website dan mobile. Dengan memanfaatkan teknologi GPS, lokasi siswa yang tepat dapat diperoleh saat siswa melaporkan kehadirannya, sehingga memungkinkan pengawas untuk memantau aktivitas siswa di lapangan dengan lebih teliti.
+\item Sistem Komprehensif Asesmen dan Monitoring Magang Medis \cite{ref7}
+\par\noindent Penelitian ini menonjolkan pentingnya instrumen evaluasi dengan merancang, mengimplementasikan, dan mengevaluasi sistem komprehensif menggunakan portofolio elektronik (e-portfolio) untuk memantau aktivitas peserta magang (intern) medis. Berbeda dengan metode linear, fase desain perangkat lunak dalam penelitian ini menggunakan metodologi Rapid Application Development (RAD). Sistem tersebut dievaluasi menggunakan kombinasi metode kuantitatif dan kualitatif, di mana hasil kuesioner kepuasan siswa menunjukkan tingkat kepuasan yang sangat tinggi terhadap sistem yang dibangun.
+\item Sistem Informasi Manajemen PKL Berbasis Website pada PT Perkebunan Nusantara IV Jambi \cite{ref8}
+\par\noindent Penelitian ini mengembangkan sistem informasi manajemen Praktik Kerja Lapangan berbasis website pada PT Perkebunan Nusantara IV Regional IV Kota Jambi dengan menggunakan metode Extreme Programming.
+\item Aplikasi Monitoring dan Evaluasi Kinerja Siswa Magang Berbasis Android \cite{ref9}
+\par\noindent Penelitian ini mengembangkan aplikasi berbasis Android untuk memantau dan mengevaluasi kinerja siswa magang pada Indonesia Learning Center.
+\item Perancangan Sistem Informasi Manajemen PKL Berbasis Web di SMK Negeri 1 Bungo \cite{ref10}
+\par\noindent Penelitian ini merancang sistem informasi manajemen PKL berbasis web untuk siswa SMK guna mempermudah pengelolaan dan pemantauan kegiatan PKL antara siswa, guru pembimbing, dan pihak sekolah.
+\item Sistem Informasi Monitoring Peserta Magang Berbasis Web di Lingkungan Korporat \cite{ref11}
+\par\noindent Penelitian ini merancang sistem informasi monitoring peserta magang berbasis web pada divisi Sales \& Business Development di Mayar Kota Bandung. Sistem ini berfokus pada pemantauan progres harian peserta magang serta penyederhanaan rekapitulasi data kehadiran dan kinerja secara terpusat.
+\item Sistem Informasi Monitoring PKL Siswa SMK Berbasis Web \cite{ref12}
+\par\noindent Penelitian ini mengembangkan sistem monitoring PKL berbasis web untuk siswa SMK Ma'arif NU 2 Boyolali guna mempermudah pemantauan aktivitas siswa selama magang serta mempercepat proses pelaporan antara siswa, guru pembimbing, dan pihak sekolah.
+\item Sistem Informasi Monitoring Siswa PKL Berbasis Web \cite{ref13}
+\par\noindent Penelitian ini menganalisis dan merancang sistem informasi monitoring siswa PKL pada SMK Permata Harapan yang mengintegrasikan fitur agenda kegiatan harian siswa dan komunikasi antara pembimbing industri dengan pembimbing sekolah dalam satu platform digital terpusat.
+\end{enumerate}

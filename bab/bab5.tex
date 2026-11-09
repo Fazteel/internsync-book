@@ -1,0 +1,25 @@
+\chapter{PENUTUP}
+
+\section{KESIMPULAN}
+
+Berdasarkan hasil analisis, perancangan, dan pengujian yang telah dijabarkan pada bab-bab sebelumnya, dapat ditarik beberapa kesimpulan sebagai berikut:
+
+\begin{enumerate}[label=\arabic*.]
+\item Pelaksanaan Praktik Kerja Lapangan (PKL) di SMK PGRI Telagasari yang sebelumnya bergantung pada dokumen fisik menimbulkan risiko kehilangan data, lambatnya verifikasi administratif, dan sulitnya pemantauan secara real-time. Solusi yang ditawarkan untuk mengatasi masalah tersebut adalah pengembangan InternSync, yakni sebuah sistem informasi manajemen terintegrasi berbasis web.
+\item Sistem ini mengintegrasikan alur administrasi PKL secara end-to-end melalui arsitektur client-server berbasis REST API terpusat. Sistem ini memadukan teknologi React pada \textit{frontend} web, Laravel pada \textit{backend} API, dan MySQL sebagai basis data, sedangkan aplikasi mobile berbasis Flutter masih berupa rencana pengembangan lanjutan. Sistem juga menjembatani komunikasi antara sekolah dan pihak industri melalui alur perizinan berbasis tautan token dan penilaian kinerja berbasis rubrik baku.
+\item Hasil pengujian menggunakan metode Black Box Testing menunjukkan tingkat keberhasilan 100\% dari 63 skenario pengujian fungsional dan keamanan.
+\item Pengujian melalui kuesioner membuktikan bahwa sistem sangat efektif dalam menyelesaikan masalah administrasi, yang ditunjukkan dengan rata-rata skor kepuasan sebesar 4,45 (Sangat Baik) dari sisi siswa dan 4,69 (Sangat Baik) dari sisi guru pembimbing maupun koordinator. InternSync terbukti mempercepat birokrasi, mengeliminasi risiko data fisik terfragmentasi, dan mendukung visi Smart School di SMK PGRI Telagasari.
+\end{enumerate}
+
+\section{SARAN}
+
+Meskipun aplikasi web InternSync telah berhasil diimplementasikan, terdapat beberapa keterbatasan yang dapat dijadikan landasan untuk pengembangan dan peningkatan sistem di masa mendatang:
+
+\begin{enumerate}[label=\arabic*.]
+\item Merealisasikan aplikasi mobile berbasis Flutter bagi Siswa dan Guru Pembimbing sesuai rancangan pada subbab 3.3, yang terhubung ke REST API yang sama dengan aplikasi web, mencakup login, dasbor, pencatatan logbook dengan foto dari kamera ponsel, pengajuan izin/sakit, dan pemantauan siswa bimbingan.
+\item Setelah aplikasi mobile terealisasi, perlu adanya integrasi sistem push notification serta fitur notifikasi pengingat (reminder) otomatis untuk pengisian logbook siswa agar respon pengawasan dapat berjalan lebih cepat.
+\item Integrasi WhatsApp Business API Gateway otomatis untuk pengiriman tautan tokenized persetujuan izin presensi dan formulir rubrik evaluasi langsung ke kontak nomor telepon pembimbing industri secara instan, guna meningkatkan kecepatan respon industri di lapangan.
+\item Modul evaluasi dan pengawasan perlu diperluas dengan menambahkan fitur unggah dokumentasi (seperti foto kunjungan industri) bagi guru pembimbing saat melakukan supervisi ke lokasi industri.
+\item Fitur rekapitulasi dan ekspor laporan akhir (report) disarankan agar dikembangkan dengan kapabilitas kustomisasi format output, sehingga dapat lebih fleksibel beradaptasi dengan perubahan standar administrasi sekolah.
+\item Peningkatan pada aspek desain antarmuka (UI/UX) pada sisi pengguna siswa agar tampilannya lebih modern dan memfasilitasi penambahan modul galeri foto kegiatan harian.
+\end{enumerate}

@@ -1,0 +1,71 @@
+\chapter{PENDAHULUAN}
+
+\section{LATAR BELAKANG}
+
+Perkembangan teknologi informasi saat ini menuntut adanya integrasi sistem digital di lingkungan institusi pendidikan guna meningkatkan efisiensi, transparansi, dan kualitas layanan administrasi akademik. Sekolah Menengah Kejuruan (SMK) memiliki karakteristik pembelajaran khusus yang berorientasi pada praktik dan kesiapan kerja siswa, yang diwujudkan melalui program utama Praktik Kerja Lapangan (PKL). Program ini berfungsi sebagai jembatan krusial untuk mengaplikasikan pengetahuan teoretis yang didapat di sekolah langsung ke dalam situasi nyata di dunia usaha dan dunia industri (DUDI). Tingkat urgensi yang diangkat dalam penelitian proyek akhir ini berpusat pada kondisi operasional di SMK PGRI Telagasari, di mana proses monitoring kegiatan PKL masih dilakukan secara konvensional dan manual. Pencatatan kehadiran dan pengisian aktivitas harian siswa masih bergantung penuh pada dokumen fisik. Keterbatasan sistem pencatatan manual ini berpotensi besar menimbulkan berbagai risiko operasional, seperti keterlambatan pengisian logbook, risiko kehilangan data, serta lambatnya proses verifikasi oleh guru pembimbing karena data tidak terintegrasi. Akibatnya, pengawasan terhadap perkembangan kompetensi siswa di industri tidak dapat berjalan secara real-time. Hal tersebut kurang sejalan dengan visi SMK PGRI Telagasari yang mengedepankan konsep Smart School, di mana pemanfaatan teknologi seharusnya menjadi pilar utama pengelolaan akademik agar lebih efektif dan efisien. Oleh karena itu, diperlukan sebuah pengembangan sistem manajemen PKL terintegrasi berbasis web untuk mempercepat proses administrasi, menyediakan dokumentasi data yang terstruktur, serta mengoptimalkan fungsi pengawasan jarak jauh.
+
+\section{PERMASALAHAN}
+
+Berdasarkan analisis situasi pada platform operasional sekolah, pelaksanaan Praktik Kerja Lapangan (PKL) di SMK PGRI Telagasari masih dihadapkan pada kendala manajerial yang signifikan akibat ketergantungan pada prosedur manual. Faktor utama yang mempersulit efisiensi program ini adalah belum adanya platform pemantauan digital berbasis web yang mampu mengintegrasikan alur koordinasi secara end-to-end antara siswa, guru pembimbing, koordinator PKL, pihak hubungan industri (hubin), dan administrator sistem. Ketiadaan sistem terpusat ini menyebabkan proses dokumentasi kehadiran serta pengisian logbook harian oleh siswa sering mengalami keterlambatan pelaporan dan sulit dipantau secara real-time. Selain itu, guru pembimbing harus melakukan pengecekan manual atau kunjungan fisik langsung ke lokasi industri hanya untuk melakukan verifikasi administratif. Kondisi data rekapitulasi nilai dan laporan yang tersebar serta tidak terintegrasi dalam satu basis data terpusat juga mempersulit pihak manajemen sekolah dalam melakukan evaluasi cepat yang krusial bagi pengambilan keputusan strategis pelaksanaan praktik.
+
+\section{BATASAN MASALAH}
+
+Agar pembahasan dalam proyek akhir ini tetap fokus dan tidak meluas, maka ruang lingkup pengembangan sistem dibatasi pada hal-hal berikut:
+
+\begin{itemize}
+\item Sistem informasi manajemen monitoring PKL ini dibangun menggunakan arsitektur client-server berbasis REST API terpusat dengan teknologi React pada sisi frontend web, framework Laravel pada sisi backend API, dan MySQL sebagai pengelola sistem manajemen basis data.
+\item Aplikasi utama dikembangkan berbasis responsive web untuk seluruh aktor pengguna sekolah. Aplikasi mobile berbasis framework Flutter bagi peran Siswa dan Guru Pembimbing masih berada pada tahap perencanaan, belum diimplementasikan, dan tidak termasuk dalam pengujian proyek akhir ini.
+\item Manajemen hak akses pengguna (Role-Based Access Control) dibatasi secara ketat untuk lima role utama di lingkungan sekolah, yaitu Admin Sistem, Siswa, Guru Pembimbing, Koordinator PKL, dan Hubin, serta disediakan akses tokenized link terenkripsi bagi pembimbing industri tanpa mengharuskan login aplikasi.
+\item Pengelolaan lowongan PKL dilakukan secara berjenjang. Hubin menambahkan data master industri mitra beserta dokumen MoU, kemudian Koordinator PKL mengatur rincian lowongan pada industri tersebut yang meliputi kuota, jenis lowongan (umum atau khusus jurusan), posisi, deskripsi, dan batas waktu pendaftaran. Siswa dapat melihat katalog dan melamar pada lowongan yang tersedia, lalu Koordinator menyeleksi pendaftar sebelum proses pengajuan penempatan PKL dilanjutkan kepada Hubin.
+\item Alur perizinan presensi (izin/sakit) siswa memfasilitasi persetujuan pembimbing industri melalui tautan token aman, dilengkapi batas waktu dan fasilitas fallback/bypass approval oleh guru pembimbing sekolah agar proses administrasi kehadiran tidak terhambat.
+\item Fungsionalitas pelacakan progres waktu pelaksanaan magang pada sistem dibatasi untuk mengakomodasi durasi praktik selama 3 bulan atau 6 bulan.
+\item Penilaian akhir siswa mengacu pada format rubrik baku jurnal PKL SMK yang mencakup penilaian aspek non-teknis (sikap/soft skills) dan aspek teknis (keterampilan/hard skills) dari industri serta penilaian laporan oleh sekolah.
+\item Perancangan struktur basis data menggunakan pemisahan tegas antara tabel master (prefix m\_) dan tabel transaksi (prefix tr\_) yang dinormalisasi hingga Third Normal Form (3NF), dengan pusat relasi operasional berada pada entitas tr\_internships.
+\end{itemize}
+
+\section{TUJUAN}
+
+Penelitian proyek akhir ini mengembangkan pemodelan sistem informasi manajemen terintegrasi untuk mengatasi ketidakefisienan pengawasan akademik dan lambatnya administrasi manual dengan menggunakan Sistem Manajemen Praktik Kerja Lapangan berbasis web bernama InternSync.
+
+Secara khusus, tujuan yang ingin dicapai dari pengembangan sistem ini meliputi:
+
+\begin{itemize}
+\item Mengimplementasikan digitalisasi administrasi PKL terpadu yang mencakup modul katalog kuota lowongan industri, pengajuan penempatan terstruktur, jurnal logbook harian digital, sistem perizinan presensi terintegrasi industri, serta otomatisasi pembuatan surat pengantar dan penempatan dinas.
+\item Mengembangkan sistem evaluasi dan rekapitulasi data nilai PKL terstandarisasi berbasis rubrik baku kejuruan guna mempercepat pengumpulan nilai industri dan sekolah secara akuntabel.
+\item Menyediakan pembaruan data antarperan yang andal pada aplikasi web melalui REST API terpusat serta menjaga akuntabilitas data melalui sistem perekaman jejak audit (audit logs).
+\end{itemize}
+
+\section{MANFAAT}
+
+Pengembangan sistem InternSync diharapkan mampu memberikan kontribusi nyata dan spesifik terhadap pihak-pihak terkait sebagai berikut:
+
+\begin{itemize}
+\item Bagi Sekolah: Mendukung penuh percepatan implementasi konsep Smart School melalui digitalisasi total dokumen administrasi akademik, serta mempermudah manajemen sekolah melakukan evaluasi pelaksanaan program berbasis data yang akurat dan terpusat.
+\item Bagi Guru Pembimbing dan Koordinator PKL: Memudahkan Koordinator mengelola kuota industri, Siswa mengisi logbook di lokasi magang, dan Guru Pembimbing memantau siswa di lapangan melalui aplikasi web responsif yang dapat diakses dari peramban ponsel. Sistem juga menyajikan grafik progres durasi magang secara real-time dan lembar rekapitulasi nilai akhir otomatis.
+\item Bagi Siswa: Memberikan kemudahan dalam memilih lowongan industri, pelaporan aktivitas kerja dan kehadiran secara digital, mengeliminasi risiko kehilangan riwayat data laporan fisik, serta menjamin kejelasan status perizinan dan perolehan umpan balik selama masa PKL.
+\item Bagi Industri Mitra (Pembimbing Lapangan): Memberikan kemudahan dalam mengonfirmasi perizinan siswa dan mengisi rubrik penilaian kinerja secara cepat dan praktis melalui tautan aman tanpa terbebani keharusan registrasi akun atau membuka portal aplikasi yang rumit.
+\end{itemize}
+
+\section{SISTEMATIKA PENULISAN}
+
+Sistematika pembahasan dalam buku proyek akhir ini disusun secara sistematis ke dalam lima bab utama dengan rincian sebagai berikut:
+
+\noindent\textbf{Bab 1 Pendahuluan}\par\nopagebreak
+
+Menguraikan latar belakang masalah monitoring manual di sekolah, identifikasi permasalahan, batasan masalah pengembangan perangkat lunak, tujuan orisinalitas sistem InternSync, manfaat bagi para aktor, serta sistematika penulisan laporan.
+
+\noindent\textbf{Bab 2 Kajian Pustaka}\par\nopagebreak
+
+Memaparkan ulasan literatur dari penelitian-penelitian terdahulu yang relevan serta landasan teori komprehensif mengenai Praktik Kerja Lapangan (PKL), Sistem Informasi Manajemen (SIM), React, Laravel, MySQL, dan metodologi Waterfall.
+
+\noindent\textbf{Bab 3 Desain Sistem}\par\nopagebreak
+
+Menjelaskan perancangan teknis sistem yang meliputi arsitektur lapisan aplikasi client-server berbasis REST API terpusat, pemodelan alur kerja bisnis (Business Process Model and Notation / BPMN), Use Case Diagram, Activity Diagram, struktur data (Entity Relationship Diagram / ERD dan Physical Data Model / PDM), serta gambaran antarmuka sistem versi web dan rencana pengembangan aplikasi mobile.
+
+\noindent\textbf{Bab 4 Eksperimen dan Analisis}\par\nopagebreak
+
+Menyajikan seluruh tahapan implementasi kode program, pengujian fungsionalitas sistem menggunakan metode Black Box Testing (mencakup validasi hak akses rute, operasi CRUD inti, error handling, dan responsivitas antarmuka), serta analisis mendalam terhadap hasil pengujian.
+
+\noindent\textbf{Bab 5 Penutup}\par\nopagebreak
+
+Berisi kesimpulan akhir yang ditarik dari hasil analisis, perancangan, dan pengujian keandalan sistem InternSync, serta penyampaian saran-saran strategis untuk pengembangan fitur aplikasi di masa mendatang.

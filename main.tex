@@ -1,0 +1,354 @@
+% ============================================================================
+%  PROYEK AKHIR - Sistem Manajemen Praktik Kerja Lapangan (PKL) SMK PGRI Telagasari
+%  Fahmi Andika Setiono - NRP 3123512901 - D3 Teknik Informatika PENS
+%
+%  Kompilasi (disarankan pdfLaTeX, jalankan 2-3 kali agar daftar isi/gambar/tabel
+%  dan rujukan silang terisi):
+%       pdflatex main.tex  ->  pdflatex main.tex  ->  pdflatex main.tex
+%  Struktur:
+%       main.tex            preamble, sampul, halaman depan, daftar isi
+%       bab/*.tex           isi bab 1-5, abstrak, kata pengantar, pustaka, lampiran
+%       gambar/             seluruh gambar (diagram, tangkapan layar, logo)
+% ============================================================================
+\documentclass[12pt,a4paper]{report}
+
+% ---------- font & bahasa -----------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}               % Times (setara Times New Roman)
+\IfFileExists{indonesian.ldf}%
+  {\usepackage[indonesian]{babel}}%
+  {\usepackage[english]{babel}\babelprovide[import,main]{indonesian}}
+\usepackage{microtype}
+\usepackage{amsmath}
+\DeclareUnicodeCharacter{2192}{\ensuremath{\rightarrow}}
+\emergencystretch=3em
+
+% ---------- tata letak halaman ------------------------------------------------
+\usepackage[a4paper,left=4cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{indentfirst}
+\setlength{\parindent}{1cm}
+\setlength{\parskip}{0pt}
+\pagestyle{plain}
+\AddToHook{env/longtable/begin}{%
+  \advance\linewidth by -3.3pt\footnotesize
+  \let\multicolumn\PrismLongtableMulticolumn}
+
+% ---------- paket umum ----------------------------------------------------------
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{float}
+\usepackage[table]{xcolor}
+\usepackage{array}
+\let\PrismOriginalMulticolumn\multicolumn
+\newcommand{\PrismLongtableMulticolumn}[3]{%
+  \PrismOriginalMulticolumn{#1}{#2}{\scriptsize #3}}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{eso-pic}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{url}
+\urlstyle{same}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{hypertexnames=false}
+
+\definecolor{pensblue}{HTML}{002AA6}
+\definecolor{pensyellow}{HTML}{F1CA00}
+
+% ---------- judul bab & subbab --------------------------------------------------
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\centering\fontsize{14}{17}\selectfont}
+  {BAB \thechapter}{4pt}{\MakeUppercase}
+\titleformat{name=\chapter,numberless}[display]
+  {\normalfont\bfseries\centering\fontsize{14}{17}\selectfont}
+  {}{0pt}{\MakeUppercase}
+\titlespacing*{\chapter}{0pt}{-22pt}{22pt}
+\titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection}{0.8em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{0.8em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries\itshape}{\thesubsubsection}{0.8em}{}
+\titlespacing*{\section}{0pt}{14pt}{4pt}
+\titlespacing*{\subsection}{0pt}{10pt}{3pt}
+\titlespacing*{\subsubsection}{0pt}{8pt}{3pt}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+% ---------- daftar (bullet / nomor) ------------------------------------------
+\setlist{leftmargin=1.2cm,itemsep=0pt,topsep=2pt,parsep=0pt,partopsep=0pt}
+\setlist[itemize,1]{label=\textbullet}
+
+% ---------- caption -------------------------------------------------------------
+\captionsetup{labelsep=space,font=bf,justification=centering,singlelinecheck=true}
+\captionsetup[figure]{position=below,skip=6pt}
+\captionsetup[longtable]{position=above,skip=4pt}
+\newcommand{\setnama}{%
+  \renewcommand{\figurename}{Gambar}%
+  \renewcommand{\tablename}{Tabel}%
+  \renewcommand{\contentsname}{DAFTAR ISI}%
+  \renewcommand{\listfigurename}{DAFTAR GAMBAR}%
+  \renewcommand{\listtablename}{DAFTAR TABEL}%
+  \renewcommand{\bibname}{DAFTAR PUSTAKA}%
+}
+\AtBeginDocument{\setnama}
+
+% ---------- daftar isi / gambar / tabel (tocloft) ---------------------------
+% Judul ketiga daftar TIDAK dicetak oleh tocloft, melainkan oleh \bagiandepan
+% (\chapter* + titlesec) di main.tex, supaya posisinya sama dengan ABSTRAK dkk.
+\renewcommand{\cftdot}{.}
+\renewcommand{\cftdotsep}{1.5}
+\renewcommand{\cftchapdotsep}{\cftdotsep}
+\renewcommand{\cftchapfont}{\bfseries}
+\renewcommand{\cftchappagefont}{\bfseries}
+\renewcommand{\cftchappresnum}{BAB }
+\setlength{\cftbeforechapskip}{4pt}
+\setlength{\cftchapindent}{0pt}
+\setlength{\cftchapnumwidth}{3.4em}
+\setlength{\cftsecindent}{1.0em}
+\setlength{\cftsecnumwidth}{2.4em}
+\setlength{\cftsubsecindent}{3.4em}
+\setlength{\cftsubsecnumwidth}{3.2em}
+\setlength{\cftsubsubsecindent}{6.6em}
+\setlength{\cftsubsubsecnumwidth}{4.0em}
+\renewcommand{\cftfigpresnum}{Gambar }
+\renewcommand{\cfttabpresnum}{Tabel }
+\setlength{\cftfigindent}{0pt}
+\setlength{\cfttabindent}{0pt}
+\setlength{\cftfignumwidth}{5.9em}
+\setlength{\cfttabnumwidth}{4.9em}
+\setlength{\cftbeforefigskip}{3pt}
+\setlength{\cftbeforetabskip}{3pt}
+
+% BAB pada daftar isi: bagian tak bernomor tidak diberi awalan "BAB"
+\newcommand{\bagiandepan}[1]{%
+  \chapter*{#1}%
+  \phantomsection\addcontentsline{toc}{chapter}{#1}}
+
+% Isi daftar dicetak langsung dengan \@starttoc (tanpa judul bawaan tocloft).
+\makeatletter
+\newcommand{\isidaftarisi}{\@starttoc{toc}}
+\newcommand{\isidaftargambar}{\@starttoc{lof}}
+\newcommand{\isidaftartabel}{\@starttoc{lot}}
+\makeatother
+
+% ---------- grafik yang belum tersedia (placeholder) -------------------------
+\newcommand{\GRAFIKKOSONG}[1]{%
+  \IfFileExists{#1}%
+    {\includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]{#1}}%
+    {\fbox{\parbox[c][5cm][c]{0.92\linewidth}{\centering\small\itshape
+       Letakkan file grafik di \texttt{#1}\\ (grafik belum ada pada dokumen Word asli).}}}}
+
+% ---------- tanda tangan ---------------------------------------------------------
+\newcommand{\ttd}[3]{#1 & : #2 & \hspace{1.5cm}( \hspace{2.5cm} ) \\[2pt] & \multicolumn{2}{l}{#3} \\[8pt]}
+\newcommand{\screenshotfigure}[3]{%
+  \begin{minipage}[t]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth,height=0.34\textheight,keepaspectratio]{#1}
+    \captionsetup{hypcap=false}
+    \captionof{figure}{#2}\label{#3}
+  \end{minipage}}
+
+% ============================================================================
+\begin{document}
+
+% ---------------------------- SAMPUL LUAR ----------------------------------------
+\pagenumbering{gobble}
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay,x=1cm,y=1cm]
+  \coordinate (NW) at (current page.north west);
+  \coordinate (SE) at (current page.south east);
+  \fill[pensyellow] ($(NW)+(0,-5.35)$) rectangle ($(NW)+(21.0,-6.06)$);
+  \fill[pensblue]   ($(NW)+(0,-6.06)$) rectangle (SE);
+  \node[anchor=north west] at ($(NW)+(2.6,-0.6)$) {\includegraphics[height=4.2cm]{gambar/logo-pens.jpeg}};
+  \node[anchor=center,text=pensblue,font=\bfseries\fontsize{20}{22}\selectfont] at ($(NW)+(14.2,-2.8)$) {PROYEK AKHIR};
+  \node[anchor=north,text=white,font=\bfseries\fontsize{14}{17}\selectfont,text width=15cm,align=center]
+        at ($(NW)+(10.5,-8.3)$) {SISTEM MANAJEMEN PRAKTIK KERJA\\LAPANGAN (PKL) SMK PGRI TELAGASARI};
+  \node[anchor=north,text=white,font=\bfseries\fontsize{12}{15}\selectfont,text width=15cm,align=center]
+        at ($(NW)+(10.5,-12.0)$) {Fahmi Andika Setiono\\NRP. 3123512901};
+  \node[anchor=north,text=white,font=\bfseries\fontsize{12}{15}\selectfont,text width=15cm,align=center]
+        at ($(NW)+(10.5,-14.2)$) {DOSEN PEMBIMBING\\Mohammad Robihul Mufid, M.Tr.Kom\\NIP 199408222020121002\\[10pt]
+        Yanuar Risah Prayogi, S.Kom., M.Kom.\\NIP 198801062019031009};
+  \node[anchor=north,text=white,font=\bfseries\fontsize{12}{15}\selectfont,text width=15cm,align=center]
+        at ($(NW)+(10.5,-21.0)$) {PROGRAM STUDI DIPLOMA TIGA TEKNIK INFORMATIKA\\
+        DEPARTEMEN TEKNIK INFORMATIKA DAN KOMPUTER\\
+        POLITEKNIK ELEKTRONIKA NEGERI SURABAYA\\2026};
+\end{tikzpicture}
+\clearpage
+
+% ---------------------------- SAMPUL DALAM ---------------------------------------
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay,x=1cm,y=1cm]
+  \coordinate (NW) at (current page.north west);
+  \node[anchor=north west] at ($(NW)+(3.2,-1.2)$) {\includegraphics[height=3.6cm]{gambar/logo-pens.jpeg}};
+  \node[anchor=center,font=\bfseries\fontsize{20}{22}\selectfont] at ($(NW)+(13.2,-3.0)$) {PROYEK AKHIR};
+  \node[anchor=north,font=\bfseries\fontsize{14}{17}\selectfont,text width=14cm,align=center]
+        at ($(NW)+(10.5,-7.0)$) {SISTEM MANAJEMEN PRAKTIK KERJA\\LAPANGAN (PKL) SMK PGRI TELAGASARI};
+  \node[anchor=north,font=\bfseries\fontsize{12}{15}\selectfont,text width=14cm,align=center]
+        at ($(NW)+(10.5,-11.0)$) {Fahmi Andika Setiono\\NRP 3123512901};
+  \node[anchor=north,font=\fontsize{12}{15}\selectfont,text width=14cm,align=center]
+        at ($(NW)+(10.5,-13.6)$) {{\bfseries DOSEN PEMBIMBING}\\[8pt]
+        Mohammad Robihul Mufid, M.Tr.Kom\\NIP 199408222020121002\\[8pt]
+        Yanuar Risah Prayogi, S.Kom., M.Kom\\NIP 198801062019031009};
+  \node[anchor=north,font=\bfseries\fontsize{12}{15}\selectfont,text width=14cm,align=center]
+        at ($(NW)+(10.5,-19.6)$) {PROGRAM STUDI DIPLOMA TIGA TEKNIK INFORMATIKA\\
+        DEPARTEMEN TEKNIK INFORMATIKA DAN KOMPUTER\\
+        POLITEKNIK ELEKTRONIKA NEGERI SURABAYA\\2026};
+\end{tikzpicture}
+\clearpage
+
+% ---------------------------- HALAMAN PENGESAHAN ---------------------------------
+\pagenumbering{gobble}
+\thispagestyle{empty}
+\AddToShipoutPictureBG*{%
+  \AtPageLowerLeft{\includegraphics[width=\paperwidth,height=\paperheight]{gambar/latar-pengesahan.jpeg}}}
+\begin{center}
+  {\bfseries\fontsize{14}{17}\selectfont HALAMAN PENGESAHAN}\\[18pt]
+  {\bfseries\fontsize{18}{22}\selectfont SISTEM MANAJEMEN PRAKTIK KERJA LAPANGAN (PKL)\\SMK PGRI TELAGASARI}\\[16pt]
+  Oleh:\\
+  {\bfseries Fahmi Andika Setiono\\NRP. 3123512901}\\[14pt]
+  {\bfseries Proyek Akhir ini digunakan sebagai salah satu syarat untuk\\
+  memperoleh Gelar Ahli Madya (A.Md.Kom.)}\\
+  {\bfseries di Politeknik Elektronika Negeri Surabaya\\2026}\\[16pt]
+  {\bfseries Disetujui oleh:}\\[10pt]
+\end{center}
+{\singlespacing\small
+\noindent\begin{tabular}{@{}l l l@{}}
+  \ttd{Pembimbing 1}{Mohammad Robihul Mufid, M.Tr.Kom}{NIP. 199408222020121002}
+  \ttd{Pembimbing 2}{Yanuar Risah Prayogi, S.Kom., M.Kom}{NIP. 198801062019031009}
+  \ttd{Penguji 1}{Nama Lengkap dan Gelar}{NIP.}
+  \ttd{Penguji 2}{Nama Lengkap dan Gelar}{NIP.}
+\end{tabular}}
+\vspace{1cm}
+\begin{center}
+  {\singlespacing
+  {\bfseries Mengetahui,}\\
+  Ketua Program Studi Diploma Tiga Teknik Informatika\\
+  Politeknik Elektronika Negeri Surabaya\\[64pt]
+  Nama \underline{\hspace{4cm}}\\
+  NIP. \makebox[4cm]{\dotfill}}
+\end{center}
+\clearpage
+
+% ---------------------------- PERNYATAAN ORISINALITAS -----------------------------
+\pagenumbering{roman}
+\bagiandepan{PERNYATAAN ORISINALITAS}
+\noindent Dengan ini saya menyatakan bahwa bagian atau keseluruhan proyek akhir ini:
+\begin{enumerate}[label=\arabic*.]
+  \item Adalah hasil karya sendiri dan tidak mengandung unsur plagiat dari pihak lain,
+  \item Tidak pernah diajukan untuk mendapatkan gelar akademis pada suatu Perguruan Tinggi,
+  \item Tidak pernah dipublikasikan atau ditulis oleh pihak lain
+  \item Mencantumkan rujukan dan kutipan dengan jujur dan benar terhadap sumber referensi lain yang menunjang pembahasan pada proyek akhir ini.
+\end{enumerate}
+Apabila ditemukan bukti bahwa pernyataan saya di atas tidak benar, maka saya bersedia menerima sanksi sesuai dengan ketentuan yang berlaku di Politeknik Elektronika Negeri Surabaya.
+
+\vspace{1.2cm}
+\begin{flushright}
+  \begin{minipage}{6.2cm}\centering
+    Surabaya, 11 Juli 2024\\[2.2cm]
+    {\bfseries\underline{Fahmi Andika Setiono}}\\
+    NRP. 3123512901
+  \end{minipage}
+\end{flushright}
+\clearpage
+
+% ---------------------------- PERNYATAAN PENGALIHAN HAK CIPTA -----------------------
+\bagiandepan{PERNYATAAN PENGALIHAN HAK CIPTA}
+\noindent Dengan ini, saya yang bertanda tangan di bawah ini:
+
+{\singlespacing
+\noindent\begin{tabular}{@{}l@{\hspace{0.8em}}p{9.6cm}@{}}
+  Nama & : Fahmi Andika Setiono \\[4pt]
+  NRP & : 3123512901 \\[4pt]
+  Judul Proyek Akhir & : \textquotedblleft Sistem Manajemen Praktik Kerja Lapangan (PKL) SMK PGRI Telagasari\textquotedblright \\[4pt]
+  Tanggal & : Tanggal Pengalihan Hak Cipta $\rightarrow$ Surabaya, tgl bln 20xx
+\end{tabular}}
+
+\bigskip
+\noindent menyatakan bahwa saya selaku penulis (dan/atau mewakili seluruh penulis) secara sadar dan sukarela mengalihkan hak cipta (\textit{copyright}) atas proyek akhir tersebut kepada Politeknik Elektronika Negeri Surabaya.
+
+Demikian pernyataan ini saya buat dengan sebenar-benarnya dan tanpa paksaan dari pihak mana pun.
+
+\vspace{0.6cm}
+\noindent Hormat saya,\\[0.8cm]
+[Materai]\\[0.8cm]
+Fahmi Andika Setiono
+\clearpage
+
+% ---------------------------- ABSTRAK & ABSTRACT -----------------------------------
+\bagiandepan{ABSTRAK}
+\input{bab/abstrak}
+\clearpage
+\bagiandepan{ABSTRACT}
+\selectlanguage{english}
+\input{bab/abstract}
+\selectlanguage{indonesian}\setnama
+\clearpage
+
+% ---------------------------- KATA PENGANTAR ------------------------------------------
+\bagiandepan{KATA PENGANTAR}
+{\setstretch{1.15}\input{bab/kata_pengantar}}
+\clearpage
+
+% ---------------------------- DAFTAR ISI, GAMBAR, TABEL --------------------------
+% Judul memakai \bagiandepan (sama dengan ABSTRAK, KATA PENGANTAR, dst.)
+\bagiandepan{DAFTAR ISI}
+\isidaftarisi
+\clearpage
+\bagiandepan{DAFTAR GAMBAR}
+{\singlespacing\isidaftargambar}
+\clearpage
+\bagiandepan{DAFTAR TABEL}
+{\singlespacing\isidaftartabel}
+\clearpage
+
+% ---------------------------- ISI ------------------------------------------------------
+\pagenumbering{arabic}
+\input{bab/bab1}
+\input{bab/bab2}
+\input{bab/bab3}
+\input{bab/bab4}
+\input{bab/bab5}
+
+% ---------------------------- DAFTAR PUSTAKA ------------------------------------------
+\clearpage
+\phantomsection\addcontentsline{toc}{chapter}{DAFTAR PUSTAKA}
+\begingroup
+\singlespacing
+\setlength{\itemsep}{6pt}
+\setlength{\parindent}{0pt}\raggedright
+\renewcommand{\bibname}{DAFTAR PUSTAKA}
+\makeatletter
+\renewenvironment{thebibliography}[1]
+     {\chapter*{\bibname}%
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{99}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \setlength{\itemsep}{6pt}\setlength{\parsep}{0pt}%
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000 \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@error{Empty `thebibliography' environment}\@ehc}%
+      \endlist}
+\makeatother
+\input{bab/pustaka}
+\endgroup
+
+% ---------------------------- LAMPIRAN -----------------------------------------------
+\clearpage
+\phantomsection\addcontentsline{toc}{chapter}{LAMPIRAN}
+\chapter*{LAMPIRAN}
+\input{bab/lampiran}
+
+\end{document}
