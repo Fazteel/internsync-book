@@ -4,20 +4,14 @@ Dokumentasi dan naskah lengkap Buku Laporan Proyek Akhir berbasis LaTeX untuk si
 
 ---
 
-## 👤 Informasi Penulis & Pembimbing
+## 👤 Author
 
-* **Penulis:** Fahmi Andika Setiono
-* **NRP:** 3123512901
-* **Program Studi:** D3 Teknik Informatika
+* **Penulis:** Seraress
 * **Departemen:** Departemen Teknik Informatika dan Komputer
 * **Institusi:** Politeknik Elektronika Negeri Surabaya (PENS)
 * **Tahun:** 2026
 * **GitHub:** [@Fazteel](https://github.com/Fazteel)
 * **Repository:** [internsync-book](https://github.com/Fazteel/internsync-book)
-
-### Dosen Pembimbing
-1. **Dosen Pembimbing 1:** Mohammad Robihul Mufid, M.Tr.Kom *(NIP. 199408222020121002)*
-2. **Dosen Pembimbing 2:** Yanuar Risah Prayogi, S.Kom., M.Kom *(NIP. 198801062019031009)*
 
 ---
 
